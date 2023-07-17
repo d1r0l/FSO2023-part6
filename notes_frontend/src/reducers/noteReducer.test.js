@@ -31,7 +31,8 @@ describe('noteReducer', () => {
         content: 'state changes are made with actions',
         important: false,
         id: 2
-      }]
+      }
+    ]
 
     const action = {
       type: 'TOGGLE_IMPORTANCE',

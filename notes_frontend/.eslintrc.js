@@ -14,16 +14,17 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['react', 'react-redux', 'jest'],
+  plugins: [ 'react', 'react-redux', 'jest' ],
   rules: {
-    'indent': ['error', 2, { 'SwitchCase': 1 }],
-    'linebreak-style': ['error', 'unix'],
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'never'],
+    'indent': [ 'error', 2, { 'SwitchCase': 1 } ],
+    'linebreak-style': [ 'error', 'unix' ],
+    'quotes': [ 'error', 'single' ],
+    'semi': [ 'error', 'never' ],
     'eqeqeq': 'error',
     'no-trailing-spaces': 'error',
-    'object-curly-spacing': ['error', 'always'],
-    'arrow-spacing': ['error', { before: true, after: true }],
+    'object-curly-spacing': [ 'error', 'always' ],
+    'array-bracket-spacing': [ 'error', 'always' ],
+    'arrow-spacing': [ 'error', { before: true, after: true } ],
     'react/react-in-jsx-scope': 'off'
   },
   settings: {
