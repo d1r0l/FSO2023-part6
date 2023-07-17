@@ -1,8 +1,9 @@
 // eslint-disable-next-line no-undef
 module.exports = {
   env: {
-    browser: true,
-    es2021: true
+    'browser': true,
+    'es2021': true,
+    'jest/globals': true
   },
   extends: [
     'eslint:recommended',
@@ -13,9 +14,9 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['react', 'react-redux'],
+  plugins: ['react', 'react-redux', 'jest'],
   rules: {
-    'indent': ['error', 2],
+    'indent': ['error', 2, { 'SwitchCase': 1 }],
     'linebreak-style': ['error', 'unix'],
     'quotes': ['error', 'single'],
     'semi': ['error', 'never'],
