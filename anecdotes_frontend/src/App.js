@@ -6,19 +6,18 @@ const App = () => {
   const dispatch = useDispatch()
 
   const vote = (id) => {
-    return dispatch({
+    return {
       type: 'VOTE',
       payload: { id: id }
-    })
+    }
   }
 
   const create = (event) => {
     event.preventDefault()
-    console.log(event.target.anecdote.value)
-    return dispatch({
+    return {
       type: 'CREATE',
       payload: { content: event.target.anecdote.value }
-    })
+    }
   }
 
   return (
@@ -31,12 +30,12 @@ const App = () => {
             <div>{anecdote.content}</div>
             <div>
               has {anecdote.votes}{' '}
-              <button onClick={() => vote(anecdote.id)}>vote</button>
+              <button onClick={() => dispatch(vote(anecdote.id))}>vote</button>
             </div>
           </div>
         ))}
       <h2>create new</h2>
-      <form onSubmit={(event) => create(event)}>
+      <form onSubmit={(event) => dispatch(create(event))}>
         <div>
           <input name='anecdote' />
         </div>
