@@ -3,7 +3,14 @@ import { voteAnecdote } from '../reducers/anecdotesReducer'
 
 const AnecdotesList = () => {
   // eslint-disable-next-line react-redux/useSelector-prefer-selectors
-  const anecdotes = useSelector(state => state)
+  const anecdotes = useSelector(({ anecdotes, filter }) => {
+    if (filter === '') return anecdotes
+    else
+      return anecdotes.filter((anecdote) =>
+        anecdote.content.toLowerCase().includes(filter.toLowerCase())
+      )
+  })
+
   const dispatch = useDispatch()
   return (
     anecdotes
