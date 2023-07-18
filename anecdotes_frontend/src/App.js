@@ -1,24 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux'
+import AnecdoteForm from './components/AnecdoteForm'
+import { voteAnecdote } from './reducers/anecdotesReducer'
 
 const App = () => {
   // eslint-disable-next-line react-redux/useSelector-prefer-selectors
   const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
-
-  const vote = (id) => {
-    return {
-      type: 'VOTE',
-      payload: { id: id }
-    }
-  }
-
-  const create = (event) => {
-    event.preventDefault()
-    return {
-      type: 'CREATE',
-      payload: { content: event.target.anecdote.value }
-    }
-  }
 
   return (
     <div>
@@ -30,17 +17,12 @@ const App = () => {
             <div>{anecdote.content}</div>
             <div>
               has {anecdote.votes}{' '}
-              <button onClick={() => dispatch(vote(anecdote.id))}>vote</button>
+              <button onClick={() => dispatch(voteAnecdote(anecdote.id))}>vote</button>
             </div>
           </div>
         ))}
       <h2>create new</h2>
-      <form onSubmit={(event) => dispatch(create(event))}>
-        <div>
-          <input name='anecdote' />
-        </div>
-        <button type='submit'>create</button>
-      </form>
+      <AnecdoteForm />
     </div>
   )
 }
