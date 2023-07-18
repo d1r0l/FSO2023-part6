@@ -4,12 +4,15 @@ import { createAnecdote } from '../reducers/anecdotesReducer'
 const AnecdoteForm = () => {
   const dispatch = useDispatch()
   return (
-    <form onSubmit={(event) => dispatch(createAnecdote(event))}>
-      <div>
-        <input name='anecdote' />
-      </div>
-      <button type='submit'>create</button>
-    </form>
+    <div>
+      <h2>create new</h2>
+      <form onSubmit={(event) => dispatch(createAnecdote(event))}>
+        <div>
+          <input name='anecdote' />
+        </div>
+        <button type='submit'>create</button>
+      </form>
+    </div>
   )
 }
 
