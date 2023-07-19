@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdotesReducer'
+import { notificationSet, notificationRemove } from '../reducers/notificationReducer'
+
+let timeoutId = null
 
 const AnecdotesList = () => {
   // eslint-disable-next-line react-redux/useSelector-prefer-selectors
@@ -13,6 +16,14 @@ const AnecdotesList = () => {
   const anecdotesSortedByVotes = [...anecdotes].sort((a, b) => b.votes - a.votes)
 
   const dispatch = useDispatch()
+
+  const handleVote = (anecdote) => {
+    clearTimeout(timeoutId)
+    dispatch(voteAnecdote(anecdote.id))
+    dispatch(notificationSet(`you voted "${anecdote.content}"`))
+    timeoutId = setTimeout(() => dispatch(notificationRemove()), 5000)
+  }
+
   return (
     anecdotesSortedByVotes
       .map((anecdote) => (
@@ -20,7 +31,7 @@ const AnecdotesList = () => {
           <div>{anecdote.content}</div>
           <div>
             has {anecdote.votes}{' '}
-            <button onClick={() => dispatch(voteAnecdote(anecdote.id))}>vote</button>
+            <button onClick={() => handleVote(anecdote)}>vote</button>
           </div>
         </div>
       ))
