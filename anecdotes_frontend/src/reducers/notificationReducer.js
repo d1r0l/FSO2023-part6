@@ -22,4 +22,15 @@ const notificationSlice = createSlice({
 })
 
 export const { notificationSet, notificationRemove } = notificationSlice.actions
+
+let timeoutId = null
+
+export const notificationPop = (anecdoteContent) => {
+  return async dispatch => {
+    clearTimeout(timeoutId)
+    dispatch(notificationSet(`you voted "${anecdoteContent}"`))
+    timeoutId = setTimeout(() => dispatch(notificationRemove()), 5000)
+  }
+}
+
 export default notificationSlice.reducer
