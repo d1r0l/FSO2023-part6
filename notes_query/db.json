@@ -14,16 +14,6 @@
       "content": "new note is created",
       "important": false,
       "id": 3
-    },
-    {
-      "content": "the new note is added",
-      "important": true,
-      "id": 4
-    },
-    {
-      "content": "another one",
-      "important": true,
-      "id": 5
     }
   ]
 }
