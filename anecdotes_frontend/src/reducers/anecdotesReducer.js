@@ -27,7 +27,7 @@ const anecdotesSlice = createSlice({
 
 export const { voteAnecdote, appendAnecdote, setAnecdotes } = anecdotesSlice.actions
 
-export const initialiseAnecdotes = () => {
+export const initializeAnecdotes = () => {
   return async dispatch => {
     const fetchedAnecdotes = await anecdotesService.getAll()
     dispatch(setAnecdotes(fetchedAnecdotes))
