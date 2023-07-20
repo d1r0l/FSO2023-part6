@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { voteAnecdote } from '../reducers/anecdotesReducer'
-import { notificationPop } from '../reducers/notificationReducer'
+import { notificationSet } from '../reducers/notificationReducer'
 
 const AnecdotesList = () => {
   // eslint-disable-next-line react-redux/useSelector-prefer-selectors
@@ -17,7 +17,7 @@ const AnecdotesList = () => {
 
   const handleVote = (anecdote) => {
     dispatch(voteAnecdote(anecdote))
-    dispatch(notificationPop(anecdote.content))
+    dispatch(notificationSet(`you voted "${anecdote.content}"`, 10))
   }
 
   return (
