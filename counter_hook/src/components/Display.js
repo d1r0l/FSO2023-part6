@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
-import { useContext } from 'react'
-import CounterContext from '../CounterContext'
+import { useCounterValue } from '../CounterContext'
 
 const Display = () => {
-  const [counter, dispatch] = useContext(CounterContext)
+  const counter = useCounterValue()
   return <div>
     {counter}
   </div>
