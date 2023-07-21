@@ -5,6 +5,9 @@ import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 
 const App = () => {
+  const queryClient = useQueryClient()
+
+  // eslint-disable-next-line no-unused-vars
   const handleVote = (anecdote) => {
     console.log('vote')
   }
@@ -14,8 +17,6 @@ const App = () => {
     refetchOnWindowFocus: false
   })
 
-  console.log(result)
-
   if ( result.isLoading ) {
     return <div>loading data...</div>
   } else if ( result.isError ) {
@@ -23,6 +24,7 @@ const App = () => {
   }
 
   const anecdotes = result.data
+  console.log('reload')
 
   return (
     <div>
