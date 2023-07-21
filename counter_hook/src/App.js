@@ -1,4 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useReducer } from 'react'
+import CounterContext from './CounterContext'
+import Display from './components/Display'
+import Button from './components/Button'
 
 const counterReducer = (state, action) => {
   switch (action.type) {
@@ -17,14 +21,14 @@ const App = () => {
   const [counter, counterDispatch] = useReducer(counterReducer, 0)
 
   return (
-    <div>
-      <div>{counter}</div>
+    <CounterContext.Provider value={[counter, counterDispatch]}>
+      <Display counter={counter}/>
       <div>
-        <button onClick={() => counterDispatch({ type: 'INC' })}>+</button>
-        <button onClick={() => counterDispatch({ type: 'DEC' })}>-</button>
-        <button onClick={() => counterDispatch({ type: 'ZERO' })}>0</button>
+        <Button dispatch={counterDispatch} type='INC' label='+' />
+        <Button dispatch={counterDispatch} type='DEC' label='-' />
+        <Button dispatch={counterDispatch} type='ZERO' label='0' />
       </div>
-    </div>
+    </CounterContext.Provider>
   )
 }
 
