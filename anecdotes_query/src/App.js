@@ -1,15 +1,29 @@
 /* eslint-disable no-unused-vars */
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { getAnecdotes } from './requests'
+import { getAnecdotes, voteAnecdote } from './requests'
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 
 const App = () => {
   const queryClient = useQueryClient()
 
-  // eslint-disable-next-line no-unused-vars
+  const createAnecdoteMutation = useMutation(voteAnecdote, {
+    onSuccess: (returnedAnecdote) => {
+      const anecdotes = queryClient.getQueryData('anecdotes')
+      queryClient.setQueryData('anecdotes', anecdotes.map(anecdote =>
+        anecdote.id === returnedAnecdote.id
+          ? returnedAnecdote
+          : anecdote
+      ))
+    },
+  })
+
   const handleVote = (anecdote) => {
-    console.log('vote')
+    createAnecdoteMutation.mutate({
+      content: anecdote.content,
+      id: anecdote.id,
+      votes: anecdote.votes + 1
+    })
   }
 
   const result = useQuery('anecdotes', getAnecdotes, {
@@ -24,7 +38,6 @@ const App = () => {
   }
 
   const anecdotes = result.data
-  console.log('reload')
 
   return (
     <div>

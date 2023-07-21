@@ -14,7 +14,6 @@ const AnecdoteForm = () => {
   const onCreate = (event) => {
     const getId = () => {
       const id = Math.floor(Math.random()*100000)
-      console.log(`id is ${id}`)
       return id
     }
 
