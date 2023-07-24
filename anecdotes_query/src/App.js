@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { getAnecdotes, voteAnecdote } from './requests'
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
+import { useNotificationDispatch } from './NotificationContext'
 
 const App = () => {
   const queryClient = useQueryClient()
@@ -18,11 +18,17 @@ const App = () => {
     },
   })
 
+  const dispatch = useNotificationDispatch()
+
   const handleVote = (anecdote) => {
     createAnecdoteMutation.mutate({
       content: anecdote.content,
       id: anecdote.id,
       votes: anecdote.votes + 1
+    })
+    dispatch({
+      type: 'SET',
+      payload: `you voted "${anecdote.content}"`
     })
   }
 
@@ -42,10 +48,8 @@ const App = () => {
   return (
     <div>
       <h3>Anecdote app</h3>
-
       <Notification />
       <AnecdoteForm />
-
       {anecdotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
