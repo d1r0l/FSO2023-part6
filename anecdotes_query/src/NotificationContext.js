@@ -19,9 +19,13 @@ export const useNotificationValue = () => {
   return fullContext[0]
 }
 
-export const useNotificationSet = () => {
+export const useNotificationDispatch = () => {
   const fullContext = useContext(NotificationContext)
   return fullContext[1]
+}
+export const useNotificationSet = () => {
+  const fullContext = useContext(NotificationContext)
+  return fullContext[2]
 }
 
 let timeoutId = null
@@ -36,7 +40,7 @@ export const NotificationContextProvider = (props) => {
   }
 
   return (
-    <NotificationContext.Provider value={[ notification, notificationSet ]}>
+    <NotificationContext.Provider value={[ notification, notificationDispatch, notificationSet ]}>
       {props.children}
     </NotificationContext.Provider>
   )
