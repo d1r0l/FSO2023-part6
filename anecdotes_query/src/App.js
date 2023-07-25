@@ -6,6 +6,7 @@ import { useNotificationSet } from './NotificationContext'
 
 const App = () => {
   const queryClient = useQueryClient()
+  const setNotification = useNotificationSet()
 
   const createAnecdoteMutation = useMutation(voteAnecdote, {
     onSuccess: (returnedAnecdote) => {
@@ -15,17 +16,19 @@ const App = () => {
           ? returnedAnecdote
           : anecdote
       ))
+      setNotification(`you voted "${returnedAnecdote.content}"`, 5)
     },
+    onError: () => {
+      setNotification('vote failed', 5)
+    }
   })
 
-  const setNotification = useNotificationSet()
   const handleVote = (anecdote) => {
     createAnecdoteMutation.mutate({
       content: anecdote.content,
       id: anecdote.id,
       votes: anecdote.votes + 1
     })
-    setNotification(`you voted "${anecdote.content}"`, 5)
   }
 
   const result = useQuery('anecdotes', getAnecdotes, {

@@ -1,14 +1,21 @@
 import { useMutation, useQueryClient } from 'react-query'
 import { createAnecdote } from '../requests'
+import { useNotificationSet } from '../NotificationContext'
 
 const AnecdoteForm = () => {
   const queryClient = useQueryClient()
+  const setNotification = useNotificationSet()
 
   const createAnecdoteMutation = useMutation(createAnecdote, {
     onSuccess: (returnedAnecdote) => {
       const anecdotes = queryClient.getQueryData('anecdotes')
       queryClient.setQueryData('anecdotes', anecdotes.concat(returnedAnecdote))
+      setNotification(`you created "${returnedAnecdote.content}"`, 5)
     },
+    onError: (error) => {
+      if (error.code === 'ERR_BAD_REQUEST') setNotification('creation failed, anecdote is too short', 5)
+      else setNotification('creation failed', 5)
+    }
   })
 
   const onCreate = (event) => {
